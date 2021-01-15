@@ -27,7 +27,7 @@ function VideoUploadPage(props) {
   const [Category, setCategory] = useState('Film & Animation');
   const [FilePath, setFilePath] = useState('');
   const [Duration, setDuration] = useState('');
-  const [ThumbnailPath, setThumbnailPath] = useState('');
+  const [Thumbnail, setThumbnail] = useState('');
 
   const onTitleChange = (e) => {
     setVideoTitle(e.currentTarget.value);
@@ -65,7 +65,7 @@ function VideoUploadPage(props) {
         Axios.post('/api/video/thumbnail', variable).then((response) => {
           if (response.data.success) {
             setDuration(response.data.fileDuration);
-            setThumbnailPath(response.data.url);
+            setThumbnail(response.data.url);
           } else {
             alert('썸네일 생성 실패!');
           }
@@ -86,11 +86,12 @@ function VideoUploadPage(props) {
       filePath: FilePath,
       category: Category,
       duration: Duration,
-      thumbnailpath: ThumbnailPath,
+      thumbnail: Thumbnail,
     };
     Axios.post('/api/video/uploadVideo', variables).then((response) => {
       if (response.data.success) {
         message.success('업로드 성공!');
+        console.log(variables);
         setTimeout(() => {
           props.history.push('/');
         }, 1000);
@@ -128,12 +129,9 @@ function VideoUploadPage(props) {
             )}
           </Dropzone>
           {/* Thumbnail */}
-          {ThumbnailPath && (
+          {Thumbnail && (
             <div>
-              <img
-                src={`http://localhost:5000/${ThumbnailPath}`}
-                alt='thumbnail'
-              />
+              <img src={`http://localhost:5000/${Thumbnail}`} alt='thumbnail' />
             </div>
           )}
         </div>

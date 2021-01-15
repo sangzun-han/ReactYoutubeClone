@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 const videoSchema = mongoose.Schema(
   {
     writer: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'User',
     },
     title: {
@@ -17,11 +18,9 @@ const videoSchema = mongoose.Schema(
       type: Number,
     },
     filePath: {
-      type: { type: String },
+      type: { $type: String },
     },
-    category: {
-      type: String,
-    },
+    catogory: String,
     views: {
       type: Number,
       default: 0,
